@@ -1,42 +1,53 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import Homepage from './components/Homepage';
-import Login from './components/Login';
-import SignUp from './components/SignUp';
-import BoothSetup from './components/BoothSetup';
-import BoothList from './components/BoothList';
-import Fees from './components/Fees';
-import Dashboard from './components/Dashboard';
-import QuickStatus from './components/QuickStatus';
-import AgentProfile from './components/AgentProfile';
-import Vehicles from './components/Vehicles';
-import CaseAssign from './components/CaseAssign';
-import Rules from './components/Rules';
+
+import Homepage from './components/homepageComp/Homepage';
+
+import Login from './components/logins/Login';
+import SignUp from './components/signups/SignUp';
+
+import Drivers from './components/signups/Drivers';
+import TrafficController from './components/signups/TrafficController';
+import PrivateComponent from './components/pages/PrivateComponent';
 
 function App() {
-  const addBoothHandler = (booths) => {
-    console.log(booths);
-  };
+  
 
   return (
+    
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Homepage/>} />{/* Done */}
-        <Route path="/login" element={<Login/>} />{/*  */}
-        <Route path="/signup" element={<SignUp/>} />{/*  */}
-        <Route path="/setup" element={<BoothSetup addBoothHandler={addBoothHandler} />} />{/*  */}
-        <Route path="/list" element={<BoothList />} />{/*  */}
-        <Route path="/fees" element={<Fees/>} />{/*  */}
-        <Route path="/dashboard" element={<Dashboard/>} />{/*  */}
-        <Route path="/agentprofile" element={<AgentProfile/>}/>{/*  */}
-        <Route path="/caseassign" element={<CaseAssign/>}/>{/*  */}
-        <Route path="/quickstatus" element={<QuickStatus/>}/>{/*  */}
-        <Route path="/rules" element={<Rules/>}/>{/*  */}
-        <Route path="/vehicles" element={<Vehicles/>}/>{/*  */}
-        <Route path="/*" element={<Navigate to="/"/>}/>{/*  Done */}
+        <Route path="/" element={<Homepage/>} />
+
+        <Route element={<PrivateComponent/>}>
+        <Route path="/*" element={<Navigate to="/"/>}/>
+        </Route>
+
+        <Route path="/login" element={<Login/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path='/tc'  element={<TrafficController/>}/>
+        <Route path='/user' element={<Drivers/>}/>
+
       </Routes>
     </BrowserRouter>
+    
   );
 }
 
 export default App;
+
+
+
+
+
+{/* 
+<Route path="/setup" element={<BoothSetup addBoothHandler={addBoothHandler} />} />
+<Route path="/list" element={<BoothList />} />
+<Route path="/fees" element={<Fees/>} />        
+<Route path="/dashboard" element={<Dashboard/>} />
+<Route path="/agentprofile" element={<AgentProfile/>}/> 
+<Route path="/caseassign" element={<CaseAssign/>}/>
+<Route path="/quickstatus" element={<QuickStatus/>}/>
+<Route path="/rules" element={<Rules/>}/>
+<Route path="/vehicles" element={<Vehicles/>}/> 
+*/}

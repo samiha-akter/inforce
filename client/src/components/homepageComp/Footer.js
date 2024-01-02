@@ -1,10 +1,10 @@
 import React from 'react';
-import '../../styles/nav.css';
+import '../../styles/App.css';
 
 // Footer component represents the footer section of the page
 function Footer() {
   return (
-    <div>
+    <div className='footer'>
       {/* Footer Content */}
       <div className="container p-5" id="footer">
         <div className="row">
@@ -25,7 +25,7 @@ function Footer() {
             <div className="single-box">
               <h2 className="text-uppercase">Useful Links</h2>
               <ul>
-                <li><a href="#">BRTA</a></li>
+                <li><a href="https://brta.gov.bd/">BRTA</a></li>
                 <li><a href="#">Fine List</a></li>
                 <li><a href="#">Notice</a></li>
                 <li><a href="#">Quick View</a></li>

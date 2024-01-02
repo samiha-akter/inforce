@@ -29,7 +29,7 @@ export default class BoothSetup extends Component {
       this.state.phone === "" ||
       this.state.password === ""
       ) {
-      alert("ALl the fields are mandatory!");
+      alert("All the fields are mandatory!");
       return;
     }
     this.props.addBoothHandler(this.state);

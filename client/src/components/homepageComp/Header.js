@@ -1,9 +1,18 @@
 import React from 'react';
 import '../../styles/nav.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink, useNavigate } from 'react-router-dom';
+
 
 // Header component represents the header section of the page
 function Header() {
+  const auth = localStorage.getItem('user');
+  const navigate = useNavigate();
+
+  const logout=()=>{
+    localStorage.clear();
+    navigate('/login')
+  }
+
   return (
     <div id="home">
       {/* Background Image */}
@@ -31,19 +40,29 @@ function Header() {
 
           {/* Navbar Content */}
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {/* Navigation Links */}
-            {/* <ul className="navbar-nav ms-auto">
+            {/* Navigation Links  */}
+            <ul className="navbar-nav ms-auto">
               <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#home">
+                <Link className="nav-link active" to="/">
                   Home
-                </a>
+                </Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link active" href="#footer">
-                  Contact
-                </a>
+                <Link className="nav-link active" to="/agentprofile">
+                  Profile
+                </Link>
               </li>
-            </ul> */}
+              <li className="nav-item">
+                <Link className="nav-link active" to="/">
+                  Booth
+                </Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to="/">
+                  Rules
+                </Link>
+              </li>
+            </ul>
 
             {/* Search Form */}
             <form className="ms-auto d-flex input-group w-auto mb-2 mb-lg-0">
@@ -60,9 +79,17 @@ function Header() {
             </form>
 
             {/* Login Button */}
-              <NavLink className="btn btn-outline-success ms-1 text-light"
+              {
+                auth?
+                <NavLink className="btn btn-outline-success ms-1 text-light"
+                type="button"
+                id="form-open" onClick={logout} to="/login">Logout({ JSON.parse(auth).name})</NavLink>
+                :
+                <NavLink className="btn btn-outline-success ms-1 text-light"
               type="button"
               id="form-open" to="/login">Login</NavLink>
+              }
+              
           </div>
         </div>
       </nav>

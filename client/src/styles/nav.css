@@ -17,11 +17,12 @@ main{
     width: 100%;
 }
 /* Footer Starts */
-footer {
-    background: rgba(14, 14, 14, 0.965); /* Transparent background */
-    padding: 86px 0;
+.footer {
+    /* background: rgba(14, 14, 14, 0.965); Transparent background */
+    /* padding: 86px 0; */
+    background: black;
     width: 100%;
-    position:relative;
+    /* position:absolute; */
     bottom: 0;
 }
 
