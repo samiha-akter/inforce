@@ -3,7 +3,6 @@ import React,{useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Header from '../homepageComp/Header';
 import Slider from '../homepageComp/Slider';
-import Homepage from '../homepageComp/Homepage';
 
 
 function SignUp() {
@@ -15,9 +14,9 @@ function SignUp() {
     setUserType(selectedUserType);
 
     if (selectedUserType === "agent") {
-      navigate('/tc');
+      navigate('/trafficcontroller');
     } else if (selectedUserType === "driver") {
-      navigate('/user');
+      navigate('/drivers');
     }
   };
 
@@ -37,7 +36,7 @@ function SignUp() {
                   <div className="d-flex justify-content-center mb-2">
                     <i className="fa-solid fa-user"></i>
                   </div>
-{/* Select Type of User */}
+      {/* Select Type of User */}
                   <div className="row justify-content-center">
         <div className="col-6">
           <select
@@ -69,44 +68,3 @@ function SignUp() {
 }
 
 export default SignUp;
-
-//   const [name,setName]=useState("");
-//     const [password,setPassword]=useState("");
-//     const [email,setEmail]=useState("");
-//   useEffect(() => {
-//     const auth = localStorage.getItem('user');
-//     if (auth) {
-//         navigate('/')
-//     }
-// }, [])
-
-// const collectData = async () => {
-//   // Check if any of the fields is empty
-//   if (!name || !email || !password) {
-//       console.error("All fields must be filled");
-//       return;
-//   }
-
-//   try {
-//       let result = await fetch('http://localhost:8000/signup', {
-//           method: 'POST',
-//           body: JSON.stringify({ name, email, password }),
-//           headers: {
-//               'Content-Type': 'application/json'
-//           }
-//       });
-
-//       result = await result.json();
-      
-//       if(result){
-//         localStorage.setItem("user", JSON.stringify(result.result));
-//         navigate('/')
-//       }
-//   } catch (error) {
-//       console.error("Error during fetch operation:", error);
-//   }
-// };
-
-
-
-{/* <input type="text" className='inputBox' value={name} onChange={(e)=>setName(e.target.value)} placeholder='Enter Name'/> */}

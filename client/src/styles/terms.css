@@ -1,0 +1,9 @@
+.terms{ 
+    color: white;
+    margin: 2%;
+    text-align: justify;
+}
+
+.terms> h1{
+    text-align: center;
+}

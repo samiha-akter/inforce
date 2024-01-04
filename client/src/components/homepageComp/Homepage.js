@@ -8,7 +8,7 @@ import Footer from './Footer';
 function Homepage() {
   return (
     <div>
-    //   {/* Container Wrapper */}
+       {/* Container Wrapper */}
       <div className="container-wrapper">
         {/* Header */}
         <Header />

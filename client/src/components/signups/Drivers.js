@@ -1,23 +1,74 @@
 import React,{useState} from 'react';
 import '../../styles/nav.css';
-// import HeaderLog from './homepageComp/HeaderLog';
-import {Link, NavLink, useNavigate} from 'react-router-dom';
+import {NavLink, useNavigate} from 'react-router-dom';
 import Header from '../homepageComp/Header';
 
 // SignUp component represents the sign-up page
 function Drivers() {
    
-  const navigate = useNavigate();
-  
+  const [formData, setFormData] = useState({
+    name: '',
+    phone: '',
+    vehicleModel: '',
+    drivingLicenseNo: '',
+    vehicleRegistrationNo: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  });
 
+  // Hook to navigate
+  const navigate = useNavigate();
+
+  // Function to handle changes in input fields
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   // Function to handle form submission
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
 
-    
-    // Handle form submission logic here If all checks pass, continue with form submission
-    // navigate('/login');
+    // Check if all fields are filled
+    for (const key in formData) {
+      if (formData[key] === '') {
+        alert('Please fill in all fields!');
+        navigate('/drivers');
+        return;
+      }
+    }
+
+    // Check if passwords match 
+    if(formData.password !== formData.confirmPassword){
+      alert('Please fill the passwords correctly!');
+      navigate('/drivers');
+      return;
+    }
+
+    try {
+      // Send a POST request to the server with form data
+      let result = await fetch('http://localhost:8000/drivers', {
+          method: 'POST',
+          body: JSON.stringify(formData),
+          headers: {
+              'Content-Type': 'application/json'
+          }
+      });
+
+      // Parse the response as JSON
+      result = await result.json();
+      
+      // If successful, save user data in local storage and navigate to home page
+      if(result){
+        localStorage.setItem("user", JSON.stringify(result.result));
+        navigate('/')
+      }
+  } catch (error) {
+      console.error("Error during fetch operation:", error);
+  }
+    // Navigate to the login page
+    navigate('/login');
     
 
   };
@@ -39,19 +90,27 @@ function Drivers() {
                     <i className="fa-solid fa-user"></i>
                   </div>
 
-                  {/* Sign-up Form */}
+                   {/* Input fields for user information */}
                   <form onSubmit={handleSubmit}>
                     <div className="row">
                       <div className="col">
-                        <input type="text" className="form-control m-2" placeholder="First name" aria-label="First name"/>
-                      </div>
-                      <div className="col">
-                        <input type="text" className="form-control m-2" placeholder="Last name" aria-label="Last name"/>
+                        <input type="text" className="form-control m-2" placeholder="Name" aria-label="name" name="name" value={formData.name}
+                          onChange={handleChange}/>
                       </div>
                     </div>
 
-                    <div className="col-12 m-2">
-                      <input type="text" className="form-control" id="inputAddress" placeholder="Address"/>
+                    <div className="row">
+                    <div className="col">
+                        <input type="text" className="form-control m-2" placeholder="Phone" aria-label="phone"
+                        name="phone" value={formData.phone}
+                          onChange={handleChange}/>
+                      </div>
+                      <div className="col">
+                        <input type="text" className="form-control m-2" placeholder="Vehicle Model Name" 
+                        name="vehicleModel"
+                        aria-label="vehicle model" value={formData.vehicleModel}
+                          onChange={handleChange}/>
+                      </div>
                     </div>
 
                     
@@ -59,10 +118,16 @@ function Drivers() {
                     
                     <div className="row">
                       <div className="col">
-                        <input type="text" className="form-control m-2" id="inputLicense" placeholder="License No."/>
+                        <input type="text" className="form-control m-2" id="inputLicense" placeholder="License No." 
+                        name="drivingLicenseNo"
+                        value={formData.drivingLicenseNo}
+                        onChange={handleChange}/>
                       </div>
                       <div className="col">
-                        <input type="text" className="form-control m-2" id="inputVehicleReg" placeholder="Vehicle Registration No."/>
+                        <input type="text" className="form-control m-2" id="inputVehicleReg" placeholder="Vehicle 
+                        Registration No." name="vehicleRegistrationNo"
+                        value={formData.vehicleRegistrationNo}
+                          onChange={handleChange}/>
                       </div>
                     </div>
                     
@@ -75,34 +140,41 @@ function Drivers() {
                       id="email"
                       className="form-control col m-2"
                       placeholder="Email"
+                      value={formData.email}
+                      onChange={handleChange}
                     />
 
                     <div className="row">
                       <div className="col">
                         <input
                           type="password"
-                          name="password"
                           id="password"
                           className="form-control m-2"
                           placeholder="Password"
+                          name="password"
+                          value={formData.password}
+                          onChange={handleChange}
                         />
                       </div>
                       <div className="col">
                         <input
                           type="password"
-                          name="password"
                           id="password"
                           className="form-control m-2"
                           placeholder="Confirm Password"
+                          name="confirmPassword"
+                          value={formData.confirmPassword}
+                          onChange={handleChange}
                         />
                       </div>
                     </div>
 
+                     {/* Checkbox for agreeing to terms and conditions */}
                     <div className="col-12 m-2">
                       <div className="form-check">
                         <input className="form-check-input" type="checkbox" id="gridCheck" required />
                         <label className="form-check-label" htmlFor="gridCheck">
-                          Agree to Terms and Conditions
+                          Agree to <NavLink to="/terms">Terms and Conditions</NavLink>
                         </label>
                       </div>
                     </div>

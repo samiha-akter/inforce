@@ -165,7 +165,9 @@ main{
         margin-bottom: 50px;
     }
 }
-
+.signup{
+    margin-top: 50px;
+}
 /* Slider */
 #textSlider.row {
 	position: absolute;
